@@ -1,0 +1,1 @@
+# Stage Trait 接口设计
