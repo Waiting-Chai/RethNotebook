@@ -26,25 +26,24 @@ The definition of this trait reveals its core responsibilities:
 /// A stage in the pipeline.
 ///
 /// The `Stage` trait is the main interface for a stage.
-pub trait Stage<DB: Database>: Send + Sync + Debug {
-    /// The unique identifier of the stage.
+pub trait Stage<Provider>: Send + Sync {
+    /// Get the ID of the stage.
+    ///
+    /// Stage IDs must be unique.
     fn id(&self) -> StageId;
 
-    /// This is the main execution function of a stage.
-    /// This is where the stage should perform its logic.
-    async fn execute(
-        &mut self,
-        provider: &DatabaseProviderRW<DB>,
-        input: ExecInput,
-    ) -> Result<ExecOutput, StageError>;
+    /// Execute the stage.
+    /// It is expected that the stage will write all necessary data to the database
+    /// upon invoking this method.
+    fn execute(&mut self, provider: &Provider, input: ExecInput) -> Result<ExecOutput, StageError>;
 
-    /// This is the unwind function of a stage.
-    /// This is where the stage should unwind its progress.
-    async fn unwind(
+    /// Unwind the stage.
+    fn unwind(
         &mut self,
-        provider: &DatabaseProviderRW<DB>,
+        provider: &Provider,
         input: UnwindInput,
     ) -> Result<UnwindOutput, StageError>;
+    // ...
 }
 ```
 
@@ -62,15 +61,17 @@ The `Pipeline` struct's definition and documentation highlight its duties:
 ```rust
 // Source: crates/stages/api/src/pipeline/mod.rs
 
-/// A staged sync pipeline.
-///
-/// The pipeline executes queued [stages][Stage] serially. An external component determines the tip
-/// of the chain and the pipeline then executes each stage in order from the current local chain tip
-/// and the external chain tip.
-pub struct Pipeline<DB: Database> {
+pub struct Pipeline<N: ProviderNodeTypes> {
+    /// Provider factory.
+    provider_factory: ProviderFactory<N>,
     /// All configured stages in the order they will be executed.
-    stages: Vec<Box<dyn Stage<DB>>>,
-    // ... other fields
+    stages: Vec<BoxedStage<<ProviderFactory<N> as DatabaseProviderFactory>::ProviderRW>>,
+    /// The maximum block number to sync to.
+    max_block: Option<BlockNumber>,
+    static_file_producer: StaticFileProducer<ProviderFactory<N>>,
+    /// Sender for events the pipeline emits.
+    event_sender: EventSender<PipelineEvent>,
+    // ...
 }
 ```
 

@@ -23,28 +23,35 @@ Reth 的整个阶段式同步框架构建于两个核心抽象之上：`Stage` t
 ```rust
 // 来源: crates/stages/api/src/stage.rs
 
-/// 流水线中的一个阶段。
+/// A stage is a segmented part of the syncing process of the node.
 ///
-/// `Stage` trait 是一个阶段的主要接口。
-pub trait Stage<DB: Database>: Send + Sync + Debug {
-    /// 阶段的唯一标识符。
+/// Each stage takes care of a well-defined task, such as downloading headers or executing
+/// transactions, and persist their results to a database.
+///
+/// Stages must have a unique [ID][StageId] and implement a way to "roll forwards"
+/// ([`Stage::execute`]) and a way to "roll back" ([`Stage::unwind`]).
+///
+/// Stages are executed as part of a pipeline where they are executed serially.
+///
+/// Stages receive [`DBProvider`](reth_provider::DBProvider).
+pub trait Stage<Provider>: Send + Sync {
+    /// Get the ID of the stage.
+    ///
+    /// Stage IDs must be unique.
     fn id(&self) -> StageId;
 
-    /// 这是阶段的主要执行函数。
-    /// 阶段应在此处执行其逻辑。
-    async fn execute(
-        &mut self,
-        provider: &DatabaseProviderRW<DB>,
-        input: ExecInput,
-    ) -> Result<ExecOutput, StageError>;
+    /// Execute the stage.
+    /// It is expected that the stage will write all necessary data to the database
+    /// upon invoking this method.
+    fn execute(&mut self, provider: &Provider, input: ExecInput) -> Result<ExecOutput, StageError>;
 
-    /// 这是阶段的回滚函数。
-    /// 阶段应在此处回滚其进度。
-    async fn unwind(
+    /// Unwind the stage.
+    fn unwind(
         &mut self,
-        provider: &DatabaseProviderRW<DB>,
+        provider: &Provider,
         input: UnwindInput,
     ) -> Result<UnwindOutput, StageError>;
+    // ...
 }
 ```
 
@@ -62,14 +69,17 @@ pub trait Stage<DB: Database>: Send + Sync + Debug {
 ```rust
 // 来源: crates/stages/api/src/pipeline/mod.rs
 
-/// 一个阶段式同步的流水线。
-///
-/// 流水线按顺序执行队列中的 [阶段][Stage]。一个外部组件确定链的顶端，
-/// 然后流水线从当前的本地区块链顶端到外部链顶端按顺序执行每个阶段。
-pub struct Pipeline<DB: Database> {
-    /// 所有已配置的、将按顺序执行的阶段。
-    stages: Vec<Box<dyn Stage<DB>>>,
-    // ... 其他字段
+pub struct Pipeline<N: ProviderNodeTypes> {
+    /// Provider factory.
+    provider_factory: ProviderFactory<N>,
+    /// All configured stages in the order they will be executed.
+    stages: Vec<BoxedStage<<ProviderFactory<N> as DatabaseProviderFactory>::ProviderRW>>,
+    /// The maximum block number to sync to.
+    max_block: Option<BlockNumber>,
+    static_file_producer: StaticFileProducer<ProviderFactory<N>>,
+    /// Sender for events the pipeline emits.
+    event_sender: EventSender<PipelineEvent>,
+    // ...
 }
 ```
 
