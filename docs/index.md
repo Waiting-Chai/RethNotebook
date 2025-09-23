@@ -11,10 +11,10 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /getting-started
+      link: /01-grand-design/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/paradigmxyz/reth
+      link: https://github.com/Waiting-Chai/RethNotebook
 
 features:
   - icon: 🏗️

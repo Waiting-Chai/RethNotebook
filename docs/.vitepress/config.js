@@ -31,8 +31,8 @@ export default defineConfig({
               text: 'Core Primitives',
               items: [
                 { text: 'Overview', link: '/02-primitives/' },
-                { text: 'Block & Transaction Types', link: '/02-primitives/01-block-transaction-types' },
-                { text: 'Merkle Trie Implementation', link: '/02-primitives/02-merkle-trie-implementation' },
+                { text: 'Introduction to Primitives', link: '/02-primitives/01-introduction-to-primitives' },
+                { text: 'Core Data Types', link: '/02-primitives/02-core-data-types' },
                 { text: 'RLP Encoding', link: '/02-primitives/03-rlp-encoding' }
               ]
             },
@@ -111,8 +111,8 @@ export default defineConfig({
               text: '第二章：基石之固：核心数据结构',
               items: [
                 { text: '概览', link: '/zh/02-primitives/' },
-                { text: '区块与交易类型', link: '/zh/02-primitives/01-block-transaction-types' },
-                { text: 'Merkle Trie 实现', link: '/zh/02-primitives/02-merkle-trie-implementation' },
+                { text: '为何从 Primitives 开始', link: '/zh/02-primitives/01-introduction-to-primitives' },
+                { text: '核心数据类型：Block, Header, Tx', link: '/zh/02-primitives/02-core-data-types' },
                 { text: 'RLP 编码与序列化', link: '/zh/02-primitives/03-rlp-encoding' }
               ]
             },
