@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 开始学习
-      link: /zh/01-introduction/
+      link: /zh/01-grand-design/
     - theme: alt
       text: GitHub
       link: https://github.com/paradigmxyz/reth
