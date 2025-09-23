@@ -52,6 +52,18 @@ This documentation covers seven comprehensive chapters:
 - **Source Code Analysis**: Detailed explanations of key implementation choices
 - **Practical Examples**: Real-world usage patterns and best practices
 
+## 🌐 Live Demo
+
+You can explore the live documentation here:
+
+**📖 [explore](http://116.198.150.160/)**
+
+The live demo includes:
+- Complete bilingual documentation (English & Chinese)
+- Interactive navigation and search functionality
+- Real-time content updates
+- Mobile-responsive design
+
 ## Local Development
 
 ### Prerequisites
