@@ -2,6 +2,18 @@
 
 A comprehensive learning resource and documentation project for understanding the Reth Ethereum client implementation.
 
+## 🌐 Live Demo
+
+You can explore the live documentation here:
+
+**📖 [explore](http://116.198.150.160/)**
+
+The live demo includes:
+- Complete bilingual documentation (English & Chinese)
+- Interactive navigation and search functionality
+- Real-time content updates
+- Mobile-responsive design
+
 ## About This Project
 
 Reth Notebook is an in-depth study guide that explores the architecture, design patterns, and implementation details of [Reth](https://github.com/paradigmxyz/reth), a high-performance Ethereum execution client written in Rust. This project serves as a bridge between the complex codebase and developers who want to understand how modern Ethereum clients work.
@@ -51,18 +63,6 @@ This documentation covers seven comprehensive chapters:
 - **Interactive Documentation**: Built with VitePress for modern browsing experience
 - **Source Code Analysis**: Detailed explanations of key implementation choices
 - **Practical Examples**: Real-world usage patterns and best practices
-
-## 🌐 Live Demo
-
-You can explore the live documentation here:
-
-**📖 [explore](http://116.198.150.160/)**
-
-The live demo includes:
-- Complete bilingual documentation (English & Chinese)
-- Interactive navigation and search functionality
-- Real-time content updates
-- Mobile-responsive design
 
 ## Local Development
 
