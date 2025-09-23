@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  reth-notebook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reth-notebook
+    ports:
+      - "40501:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # 可选：挂载日志目录
+      - ./logs:/var/log/nginx
+    networks:
+      - reth-network
+
+networks:
+  reth-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local
