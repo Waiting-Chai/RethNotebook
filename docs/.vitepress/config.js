@@ -179,10 +179,6 @@ export default defineConfig({
       copyright: 'Copyright © 2024 Reth Notebook'
     },
     
-    editLink: {
-      pattern: 'https://github.com/your-username/RethNotebook/edit/main/docs/:path'
-    },
-    
     lastUpdated: {
       text: 'Updated at',
       formatOptions: {
