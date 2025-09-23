@@ -494,7 +494,7 @@ let instance = SomeType::new();
 
 ## 贡献
 
-贡献指南请参见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
+贡献指南请参见 [CONTRIBUTING.md](https://github.com/paradigmxyz/reth/blob/main/CONTRIBUTING.md)。
 ```
 
 ### 6. 提交您的拉取请求

@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /01-grand-design/
+      link: /introduction
     - theme: alt
       text: View on GitHub
       link: https://github.com/Waiting-Chai/RethNotebook
@@ -57,7 +57,7 @@ Reth is a new Ethereum execution client built from the ground up in Rust, focusi
 
 ### Getting Started
 
-Feel free to explore the notes! Start with the [Getting Started](/getting-started) guide or browse through the [Architecture Overview](/architecture) to understand Reth's design principles.
+Feel free to explore the notes! Start with the [Introduction](/introduction) guide or browse through the [Grand Design](/01-grand-design/) to understand Reth's design principles.
 
 ---
 

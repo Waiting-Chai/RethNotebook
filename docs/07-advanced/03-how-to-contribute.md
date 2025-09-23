@@ -494,7 +494,7 @@ See the `examples/` directory for complete examples.
 
 ## Contributing
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](https://github.com/paradigmxyz/reth/blob/main/CONTRIBUTING.md) for guidelines.
 ```
 
 ### 6. Submitting Your Pull Request
