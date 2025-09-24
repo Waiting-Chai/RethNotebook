@@ -5,22 +5,36 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=1
     container_name: reth-notebook
     ports:
       - "40501:80"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
+      - TZ=Asia/Shanghai
     volumes:
-      # 可选：挂载日志目录
-      - ./logs:/var/log/nginx
+      # 挂载日志目录
+      - nginx-logs:/var/log/nginx
     networks:
       - reth-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "com.docker.compose.project=reth-notebook"
+      - "description=Reth Notebook Documentation Site"
 
 networks:
   reth-network:
     driver: bridge
+    name: reth-notebook-network
 
 volumes:
-  logs:
+  nginx-logs:
     driver: local
+    name: reth-notebook-logs
