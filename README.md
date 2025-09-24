@@ -6,7 +6,7 @@ A comprehensive learning resource and documentation project for understanding th
 
 You can explore the live documentation here:
 
-**📖 [explore](http://116.198.150.160/)**
+**📖 [explore](http://116.198.150.160:40501)**
 
 The live demo includes:
 - Complete bilingual documentation (English & Chinese)
